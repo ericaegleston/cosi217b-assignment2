@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>A single note</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        {% extends "base.html" %}
+        {% block content %}
+            <div class="note_container">
+                <h2 class="note_title">{{name}}</h2>
+                <p>{{notes.content(name)}}</p>
+            </div>
+            <br><br>
+
+            <div class="home_button">
+                <button id="go_home" type="button" onclick="window.location.href = '{{home_url}}' ;" 
+                class="outside_button">Go home</button>
+            </div>
+        {% endblock %}
+    </body>
+</html>

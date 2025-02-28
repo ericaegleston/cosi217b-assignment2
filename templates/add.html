@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add a note!</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        {% extends "base.html" %}
+        {% block content %}
+        <h2>New note:</h2>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <table class=flashes>
+                    {% for message in messages %}
+                    <tr>
+                        <td class="{{category}}">{{message}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+            {% endwith %}
+        <br>
+        <form id="add_note" action="/add" method="POST" class="add_note">
+            <p>Name: </p>
+            <input type="text" id="name" name="name" size=50 value="">
+            <p>Content: </p>
+            <input type="text" id="content" name="content" size=50 value="">
+            <br>
+            <br>
+            <button id="add_note" type="button" onclick="document.getElementById('add_note').submit() ; " 
+            class="submit_button">Submit</button>
+        </form>
+        <br>
+
+        <div class="button_container">
+            <button id="go_home" type="button" onclick="window.location.href = '{{home_url}}' ; " 
+                class="outside_button">Go home</button>
+        </div>
+        {% endblock%}
+    </body>
+</html>

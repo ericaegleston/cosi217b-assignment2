@@ -1,0 +1,112 @@
+body {
+    background: radial-gradient(circle, rgba(238,174,202,1) 30%, #94bbe9 100%);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.title_block {
+    text-align: left;
+    color: #1B4079;
+    font-size: 1.5rem;
+    padding-left: 80px;
+}
+
+h2 {
+    color: #1B4079;
+    font-size: 1.5rem;
+    padding-left: 80px;
+    padding-bottom: 10px;
+}
+
+.find_notes {
+    background-color: #ffdaea;
+    border: 3px solid #1B4079;
+    color: #1B4079;
+    width: 600px;
+    padding: 10px;
+    margin: auto;
+}
+
+.submit_button {
+    color:aliceblue;
+    background-color: #1B4079;
+    border: 1px solid #517ab7;
+    font-size: 15px; 
+    line-height: 15px; 
+    padding: 8px;
+    border-radius: 25px;
+}
+
+.note_list {
+    background-color: #ffdaea;
+    border: 5px solid #1B4079;
+    color: #1B4079;
+    margin: auto;
+    padding: 10px;
+    width: 800px;
+}
+
+.button_container {
+    margin: auto;
+    width: 600px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.outside_button {
+    color:aliceblue;
+    background-color: #1B4079;
+    border: 1px solid #517ab7;
+    font-size: 22px; 
+    line-height: 22px; 
+    padding: 10px;
+    border-radius: 25px;
+    margin: 0 auto;
+}
+
+.outside_button:hover {
+    background-color: #A3C3ED;
+}
+
+.outside_button:active {
+    background-color: #ffdaea;
+}
+
+.add_note {
+    background-color: #ffdaea;
+    border: 5px solid #1B4079;
+    color: #1B4079;
+    padding: 20px;
+    width: 500px;
+    margin: auto;
+}
+
+.flashes {
+    background-color: rgba(148,187,233,0.60);
+    border:3px solid #517ab7;
+    border-radius: 20px;
+    color:#1B4079;
+    padding: 5px;
+    margin: auto;
+}
+
+.note_container {
+    background-color: #ffdaea;
+    border: 3px solid #1B4079;
+    color: #1B4079;
+    width: 400px;
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+}
+
+.note_title {
+    color: #1B4079;
+    font-size: 1.5rem;
+    padding-left: 0px;
+}
+
+.home_button {
+    margin: auto;
+    width: 400px;
+}

@@ -2,21 +2,72 @@
 <html>
     <head>
         <title>A single note</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <script src="{{ url_for('static', filename='js/toggles.js') }}"></script>
     </head>
     <body>
         {% extends "base.html" %}
         {% block content %}
-            <div class="note_container">
-                <h2 class="note_title">{{name}}</h2>
-                <p>{{notes.content(name)}}</p>
-            </div>
-            <br><br>
 
-            <div class="home_button">
-                <button id="go_home" type="button" onclick="window.location.href = '{{home_url}}' ;" 
-                class="outside_button">Go home</button>
+            <div class="flashes_container">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <table class=flashes>
+                        {% for message in messages %}
+                        <tr>
+                            <td class="{{category}}">{{message}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+                {% endwith %}
             </div>
+
+            <div id="note_container" class="box">
+                <h2 id="note_title">{{note.name}}</h2>
+                <p>{{note.content}}</p>
+            </div>
+            
+            <h2>Comments:</h2>
+            <div class="comment_list">
+                <ul>
+                    {% for comment in note.comments %}
+                        <div id="comment_container" class="box">
+                            <li>
+                                <p>{{comment.date.date()}} {{comment.date.time().isoformat(timespec='minutes')}}</p>
+                                <p>{{comment.content}}</p>
+                            </li>
+                        </div>
+                        <br>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="outer_add_comment_container">
+                <button id="add_comment" onclick="showCommentForm();" 
+                class="outside_button">Leave a comment</button>
+                <br>
+                <br>
+                <div id="add_comment_container" class="box">
+                    <form id="add_comment" action="" method="POST" class="add_comment">
+                        <p>Please enter your comment:</p>
+                        <textarea id="comment" name="comment" cols=100 rows=2 value=""></textarea>
+                        <br>
+                        <br>
+                        <button type="submit" id="submit_comment" class="submit_button">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <br>
+            <div class="note_buttons">
+                <button id="go_home" type="button" onclick="window.location.href = '/' ;" 
+                class="outside_button">Go home</button>
+                <form id="delete_note" name="delete_note" action="" method="GET">
+                    <button type="submit" id="delete_button" name="delete" class="outside_button">Delete Note</button>
+                </form>
+            </div>
+
         {% endblock %}
     </body>
 </html>

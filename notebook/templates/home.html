@@ -2,54 +2,71 @@
 <html>
     <head>
         <title>My Notebook's Index</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <script src="{{ url_for('static', filename='js/toggles.js') }}"></script>
     </head>
     <body>
         {% extends "base.html" %}
         {% block content %}
             <h2>Hi! Welcome to your notebook.</h2>
 
-            <form id="find_notes" action="/" method="POST" class="find_notes">
-                <p>Find notes about: </p>
-                <input type="text" id="keyword" name="keyword" value="">
-                <button type="submit" id="submit_keyword" class="submit_button">Submit</button>
-            </form>
-            <br>
-
-            <div class="note_list">
-                {% if keyword %}
-                    <h3>Notes about <em>{{keyword}}</em>:</h3>
-                    <table>
-                        {% if notes.find_notes(keyword) %}
-                            {% for name in notes.find_notes(keyword) %}
-                                <tr>
-                                    <td><a href="{{url_for('get_note', name=name)}}">{{name}}</a></td>
-                                </tr>
-                            {% endfor %}
-                        {% else %}
-                                <tr>
-                                    <td>There were no notes about "{{keyword}}"</td>
-                                </tr>
-                        {% endif %}
-                    </table>
-                {% else %}
-                    <h3>All notes:</h3>
-                    <table>
-                        {% for name in notes.list_notes() %}
-                            <tr>
-                                <td><a href="{{url_for('get_note', name=name)}}">{{name}}</a></td>
-                            </tr>
+            <div class="flashes_container">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <table class=flashes>
+                        {% for message in messages %}
+                        <tr>
+                            <td class="{{category}}">{{message}}</td>
+                        </tr>
                         {% endfor %}
                     </table>
-                {% endif %}
+                    {% endif %}
+                {% endwith %}
             </div>
-            <br>
-            <div class="button_container">
-                <button id="reset_notes" type="button" onclick="document.getElementById('find_notes').submit() ; " 
-                class="outside_button">See all notes</button>
-                <button id="add_note" type="button" onclick="window.location.href = '{{add_url}}' ; " 
-                class="outside_button">Add a note!</button>
+
+            <div class="parent">
+                <div class="narrow">
+                    <div id="note_list" class="box">
+                        <form id="find_notes" name="find_notes" action="/" method="GET" class="find_notes">
+                            <h3>My notes:</h3>
+                            <p>Find notes about: </p>
+                            <input type="text" id="keyword" name="keyword" size=50>
+                            <button type="submit" id="submit_keyword" class="submit_button">Submit</button>
+                        </form>
+                        <br>
+                        {% if keyword %}
+                            <p>Notes about <b>{{keyword}}</b>:<p>
+                        {% else %}
+                            <p>All notes:</p>
+                        {% endif %}
+                            <table>
+                                {% for name in names %}
+                                    <tr>
+                                        <td><a href="{{url_for('get_note', name=name)}}">{{name}}</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                    </div>
+                    <br>  
+                    <div id="reset_notes" class="button_container">
+                        <button id="reset_notes" type="button" onclick="window.location.href = '/' ;"
+                        class="outside_button">See all notes</button>
+                    </div>
+                </div>
+                <div id="add_container" class="box">
+                    <form id="add_note" action="/" method="POST" class="add_note">
+                        <h3>Add a note!</h3>
+                        <p>Name: </p>
+                        <input type="text" id="name" name="name" size=100 value="">
+                        <p>Content: </p>
+                        <textarea id="content" name="content" cols=82 rows=5 value=""></textarea>
+                        <br>
+                        <br>
+                        <button type="submit" id="add_note" class="submit_button">Submit</button>
+                    </form>
+                </div>
             </div>
-        {% endblock %}
+            {% endblock %}
+        </div>
     </body>
 </html>

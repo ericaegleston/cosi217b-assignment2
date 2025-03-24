@@ -9,44 +9,26 @@ Welcome to My Notebook! This is a simple way to make and store notes in a single
 ### Getting started
 To activate My Notebook, first clone this repository and install the requirements found in requirements.txt. Once installed, it should be easy to boot up the application with:
 ```
-python app.py
+python run.py
 ```
-or, you can use an alterative layout by running: 
-```
-streamlit run stream.py
-```
-Notes created by My Notebook are stored in a .json file, making it possible to upload your own notes for My Notebook to use, without having to input they individually. If you'd like to provide a list of notes that will appear in My Notebook at start-up, add a file named **notes.json** to this repository, with the following schema:
-```
-{
-    "username": "<your-name>",
-    "notes": {
-        "<note-name>": "<note-content>"
-    }
-}
-```
-As you can see, this setup doesn't allow two notes to share a name. If you attempt to create a note with same name as an existing note, the original note should remain persistent — you are not allowed to add that new note to My Notebook. 
+### Adding a note
+![View of the notebook's home screen](images/home.png)
+On startup, you'll be greeted with an empty list on the left, and a form titled **Add a note!** on the right. 
 
-### API Interaction
-Using the interface of My Notebook isn't the only way to interact with the application! There are four ways to interact with the API. 1. domain/list will show a list of the names of all notes. 
-2. domain/find?keyword=<keyword> shows all notes with that keyword. 
-3. domain/note/<note-name> returns the content of the note with the name <note-name>.  
-4. domain/add allows notes to be added with a POST request, with name and content described in a dictionary or json format.
+To add a note, simply type the name of the note, add some text to the content, and then click submit! The name of your note should appear in the list on the left. 
 
-The schema for notes added with the POST method is as follows:
-```
-{
-    "name": "<name>",
-    "content: "<content>:
-}
-```
-The following API call is suggested for adding a note:
-```
-curl -X 'POST' \
-  'http://127.0.0.1:8000/add' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d
-```
-If using a json to add the note, please provide a .json file with only a single json object, formatted exactly as above. If using a dictionary, then provide a dictionary with only the keys "name" and "content"
-- You can indicate a dictionary submission with the flag -d
-- You can indicate a json submission with the flag -d @<json-file>
+### Adding a comment
+![View of a note with a single comment added below](images/comment.png)
+You can a comment to existing notes. Click the note's name in the list on the left-hand side of the homescreen, and it will bring you to page for that note. You can click the button `Leave a comment` to reveal the comment submission form. 
+
+Simply enter your comment into the submission form, and click the `Submit` button. The comment should appear beneath the note, with the date and time that it was submitted. 
+
+### Deleting a note
+Enter a note's page from the list on the home screen, and click the `Delete Note` button. 
+
+You will then be redirected to the home screen, where you can observe that the deleted note is no longer located in the list.
+
+### Searching the notebook
+You can use the form on the left-hand side of the home screen to search the notes. This fetaure allows you to search the name and content of notes for a keyword, in addition to their comments. 
+
+Any note for which the keyword can be found in its name, content, or comments will be included in your search results. 
